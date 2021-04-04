@@ -18,7 +18,7 @@
     function fetchPage(name){
       fetch(name).then(function(response){
           response.text().then(function(text){
-              document.querySelector('article').innerHTML = text;
+            document.querySelector('article').innerHTML = text;
           })
       })
     }
@@ -29,7 +29,16 @@
     }
     fetch('list').then(function(response){
         response.text().then(function(text){
-            document.querySelector('#nav').innerHTML = text;
+          var items = text.split(',');
+          var i = 0;
+          var tags = '';
+          while(i<items.length){
+            var item = items[i];
+            var tag = '<li><a href="#!'+item+'" onclick="fetchPage(\''+item+'\')">'+item+'</li>';
+            tags = tags + tag;
+            i++;
+          }
+          document.querySelector('#nav').innerHTML = text;
         })
     })
   </script>
